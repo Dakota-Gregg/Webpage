@@ -1,6 +1,6 @@
 import os
 import psycopg2
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 from dotenv import load_dotenv
 
 # Load secrets from your .env file
@@ -47,6 +47,9 @@ def catch_all(path):
     # This handles any incoming request routed through your Cloudflare tunnel[cite: 2]
     print(f"Received request for path: /{path}")
     return "Hello from your Ubuntu home server! Cloudflare tunnel is connected.", 200
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    return redirect('/')
 
 if __name__ == '__main__':
     # Runs on port 5000 locally; your cloudflared tunnel config will point to this port[cite: 2]
